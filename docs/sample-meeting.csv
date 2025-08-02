@@ -1,0 +1,8 @@
+title,dateTime,duration,templateId,agenda_items
+Team Sprint Planning,2025-09-15T09:00:00Z,45,template_brainstorming,"Define user stories (10 min), Estimate story points (15 min), Plan sprint backlog (15 min), Set sprint goals (5 min)"
+Weekly Standup,2025-09-16T10:30:00Z,15,template_standup,"Yesterday's progress (5 min), Today's goals (5 min), Blockers discussion (3 min), Next steps (2 min)"
+Client Quarterly Review,2025-09-18T14:00:00Z,60,template_client_review,"Welcome and introductions (5 min), Q4 achievements overview (20 min), Product demo (25 min), Q&A and feedback (10 min)"
+Product Design Workshop,2025-09-20T13:00:00Z,90,template_brainstorming,"Problem identification (15 min), User research insights (20 min), Ideation session (30 min), Solution prioritization (15 min), Next steps planning (10 min)"
+Marketing Campaign Planning,2025-09-24T15:30:00Z,50,template_brainstorming,"Campaign objectives (10 min), Target audience analysis (15 min), Content strategy brainstorm (20 min), Timeline and budget (5 min)"
+Customer Feedback Session,2025-09-26T16:00:00Z,40,template_client_review,"Customer introductions (5 min), Product feedback collection (25 min), Feature requests discussion (10 min)"
+Team Retrospective,2025-09-28T10:00:00Z,35,, "What went well (10 min), What could improve (15 min), Action items (10 min)"

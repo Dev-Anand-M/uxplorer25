@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timekeeper Agent - Overview</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Overview Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="overview-hero">
+                <h1 class="hero-title">⏱️ Timekeeper Agent</h1>
+                <p class="hero-subtitle">Transform your meetings with intelligent timing, real-time analytics, and seamless collaboration</p>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="startApp()">
+                        🚀 Get Started
+                    </button>
+                    <button class="btn btn-outline" onclick="scrollToFeatures()">
+                        📖 Learn More
+                    </button>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div id="features" class="features-section">
+                <h2 class="section-title">✨ Key Features</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3>Smart Timer System</h3>
+                        <p>Automated meeting timers with audio alerts, progress tracking, and snooze functionality</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Template Management</h3>
+                        <p>Edit agenda items in real-time, create reusable templates, and track progress</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Track meeting efficiency, time savings, and get actionable insights</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Professional UI</h3>
+                        <p>Professional UI, multi-agent integration, and scalable architecture</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works Section -->
+            <div class="how-it-works">
+                <h2 class="section-title">🔄 How It Works</h2>
+                
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <h3>Schedule Meeting</h3>
+                        <p>Create meetings with custom agendas or use pre-built templates</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <h3>Start Timer</h3>
+                        <p>Launch full-screen timer with visual progress and audio notifications</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <h3>Track Progress</h3>
+                        <p>Monitor agenda items and receive alerts at key intervals</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <h3>Analyze Results</h3>
+                        <p>Review efficiency metrics and optimize future meetings</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="benefits-section">
+                <h2 class="section-title">🎯 Benefits</h2>
+                
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">⚡</span>
+                        <div class="benefit-content">
+                            <h4>Increased Efficiency</h4>
+                            <p>Stay on track with timed agenda items and automatic alerts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📈</span>
+                        <div class="benefit-content">
+                            <h4>Data-Driven Insights</h4>
+                            <p>Analyze meeting performance and identify improvement opportunities</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🔄</span>
+                        <div class="benefit-content">
+                            <h4>Standardized Process</h4>
+                            <p>Use templates to ensure consistent meeting structure across teams</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <span class="benefit-icon">💾</span>
+                        <div class="benefit-content">
+                            <h4>No Backend Required</h4>
+                            <p>Fully client-side application with local data storage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <h2>Ready to Transform Your Meetings?</h2>
+                <p>Start using Timekeeper Agent today and experience more efficient, data-driven meetings</p>
+                <button class="btn btn-primary btn-large" onclick="startApp()">
+                    🚀 Launch Timekeeper Agent
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="overview-footer">
+        <div class="container">
+            <p>&copy; 2025 Timekeeper Agent - Built for UXplorer 2025 Hackathon</p>
+            <p>Collaborative Agents for Complex Projects</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Navigation functions
+        function startApp() {
+            localStorage.setItem('hasVisited', 'true');
+            window.location.href = 'index.html';
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Add entrance animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.feature-card, .step-item, .benefit-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+
+    <style>
+        /* Overview-specific styles */
+        .overview-hero {
+            text-align: center;
+            padding: var(--space-12) 0;
+            background: linear-gradient(135deg, var(--primary-color), #0e7490);
+            color: white;
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--space-8);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-6);
+            opacity: 0.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: var(--space-4) var(--space-6);
+            font-size: 1.125rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: var(--space-8);
+            color: var(--text-primary);
+        }
+
+        .features-section, .how-it-works, .benefits-section {
+            margin-bottom: var(--space-12);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .feature-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .feature-card h3 {
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .step-item {
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+        }
+
+        .benefits-list {
+            display: grid;
+            gap: var(--space-4);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            transition: all var(--transition-fast);
+        }
+
+        .benefit-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h4 {
+            margin: 0 0 var(--space-1) 0;
+            color: var(--text-primary);
+        }
+
+        .benefit-content p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        .cta-section {
+            text-align: center;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: var(--space-12);
+            margin-bottom: var(--space-8);
+        }
+
+        .cta-section h2 {
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+
+        .cta-section p {
+            margin-bottom: var(--space-6);
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .overview-footer {
+            text-align: center;
+            padding: var(--space-6) 0;
+            border-top: 1px solid var(--border-color);
+            background: var(--surface-color);
+        }
+
+        .overview-footer p {
+            margin: var(--space-1) 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</body>
+</html>

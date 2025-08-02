@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timekeeper Agent - Meeting Management</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Notifications Container -->
+    <div class="notifications-container" id="notificationsContainer"></div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="brand">
+                <h1>⏱️ Timekeeper Agent</h1>
+                <p class="tagline">Intelligent Meeting Management</p>
+            </div>
+            <nav class="main-nav" role="navigation">
+                <button class="nav-btn active" data-tab="dashboard">📅 Dashboard</button>
+                <button class="nav-btn" data-tab="schedule">🗓️ Schedule</button>
+                <button class="nav-btn" data-tab="templates">📝 Templates</button>
+                <button class="nav-btn" data-tab="analytics">📊 Analytics</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="section-header">
+                    <h2>📅 Upcoming Meetings</h2>
+                    <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                        <button class="btn btn-danger" id="deleteAllBtn" onclick="agent.deleteAllMeetings()" style="display: none;">
+                            🗑️ Delete All
+                        </button>
+                        <button class="btn btn-primary" onclick="agent.switchTab('schedule')">
+                            ➕ Schedule New Meeting
+                        </button>
+                    </div>
+                </div>
+
+                <div id="meetingsGrid" class="meetings-grid">
+                    <!-- Meetings will be rendered here -->
+                </div>
+
+                <div id="emptyDashboard" class="empty-state">
+                    <div class="empty-icon">📅</div>
+                    <h3>No meetings scheduled</h3>
+                    <p>Create your first meeting to get started</p>
+                </div>
+            </div>
+
+            <!-- Schedule Tab -->
+            <div id="schedule" class="tab-content">
+                <div class="section-header">
+                    <h2>🗓️ Schedule New Meeting</h2>
+                    <button class="btn btn-outline" onclick="agent.showImportModal()">
+                        📊 Import CSV/Excel
+                    </button>
+                </div>
+
+                <div class="form-container">
+                    <h2>Create Meeting</h2>
+                    <form id="meetingForm" onsubmit="agent.scheduleMeeting(event)">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="meetingTitle">Meeting Title*</label>
+                                <input type="text" id="meetingTitle" required maxlength="100" 
+                                       placeholder="Enter meeting title">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="meetingDateTime">Date & Time*</label>
+                                <input type="datetime-local" id="meetingDateTime" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="meetingTemplate">Use Template</label>
+                                <select id="meetingTemplate" onchange="agent.templateChanged()">
+                                    <option value="">Select a template (optional)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="meetingAgenda">Meeting Agenda</label>
+                                <textarea id="meetingAgenda" rows="6" 
+                                          placeholder="Enter agenda items, one per line. Use format: 'Item Name (X min)' for timed items"></textarea>
+                                <small>Format: "Welcome (5 min)", "Discussion", "Action Items (10 min)"</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('meetingForm').reset()">
+                                Clear Form
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                📅 Schedule Meeting
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Templates Tab -->
+            <div id="templates" class="tab-content">
+                <div class="section-header">
+                    <h2>📝 Meeting Templates</h2>
+                    <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                        <button class="btn btn-secondary" id="selectAllTemplatesBtn" onclick="agent.selectAllTemplates()" style="display: none;">
+                            ☑️ Select All
+                        </button>
+                        <button class="btn btn-danger" id="deleteSelectedTemplatesBtn" onclick="agent.deleteSelectedTemplates()" style="display: none;">
+                            🗑️ Delete Selected
+                        </button>
+                        <button class="btn btn-primary" onclick="agent.showCreateTemplateModal()">
+                            ➕ Create Template
+                        </button>
+                    </div>
+                </div>
+
+                <div id="templatesGrid" class="templates-grid">
+                    <!-- Templates will be rendered here -->
+                </div>
+
+                <div id="emptyTemplates" class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>No templates yet</h3>
+                    <p>Create your first template to get started</p>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics" class="tab-content">
+                <div class="section-header">
+                    <h2>📊 Meeting Analytics</h2>
+                </div>
+
+                <div class="analytics-kpi">
+                    <div class="kpi-card">
+                        <div class="kpi-value" id="totalMeetings">0</div>
+                        <div class="kpi-label">Total Meetings</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value" id="avgEfficiency">0%</div>
+                        <div class="kpi-label">Avg Efficiency</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value" id="timeSaved">0m</div>
+                        <div class="kpi-label">Time Saved</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value" id="onTimeRate">0%</div>
+                        <div class="kpi-label">On-Time Rate</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="analyticsChart" width="400" height="200"></canvas>
+                </div>
+
+                <div id="emptyAnalytics" class="empty-state">
+                    <div class="empty-icon">📊</div>
+                    <h3>No data yet</h3>
+                    <p>Complete your first meeting to see analytics</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Timer View (Hidden by default) -->
+    <div id="timerView" class="timer-view" style="display: none;">
+        <div class="timer-header">
+            <h2 id="timerTitle">Meeting Title</h2>
+            <div class="timer-status" id="timerStatus">Running</div>
+            <button class="btn btn-secondary" onclick="agent.exitTimerView()">
+                ⬅️ Back
+            </button>
+        </div>
+
+        <div class="timer-main">
+            <div class="timer-display">
+                <div class="timer-circle">
+                    <svg class="progress-ring-svg" width="280" height="280">
+                        <circle class="progress-ring-bg" cx="140" cy="140" r="120" 
+                                fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="8"/>
+                        <circle class="progress-ring-fill" cx="140" cy="140" r="120"
+                                fill="none" stroke="white" stroke-width="8"
+                                stroke-dasharray="754" stroke-dashoffset="754"/>
+                    </svg>
+                    <div class="timer-time" id="timerTime">25:00</div>
+                    <div class="timer-label">remaining</div>
+                </div>
+            </div>
+
+            <div class="agenda-panel">
+                <h3>📋 Agenda</h3>
+                <div id="agendaItems" class="agenda-items">
+                    <!-- Agenda items will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="timer-controls">
+            <button class="btn btn-secondary" id="pauseResumeBtn" onclick="agent.pauseResumeTimer()">
+                ⏸️ Pause
+            </button>
+            <button class="btn btn-danger" onclick="agent.stopTimer()">
+                ⏹️ Stop
+            </button>
+        </div>
+
+        <div class="timer-stats">
+            <div class="stat-item">
+                <span class="stat-label">Elapsed</span>
+                <span class="stat-value" id="elapsedTime">00:00</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Progress</span>
+                <span class="stat-value" id="progressPercent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer"></div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize the application
+        const agent = new TimekeeperAgent();
+    </script>
+</body>
+</html>
