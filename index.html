@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timekeeper Agent - Meeting Management</title>
     <link rel="stylesheet" href="css/style.css">
+    <head>
+  <script>
+    // Check if URL contains "skipRedirect=true"
+    const skipRedirect = window.location.search.includes('skipRedirect=true');
+    
+    // Redirect only if NOT skipping AND at root or index.html
+    if (!skipRedirect && (window.location.pathname === '/' || window.location.pathname === '/index.html')) {
+      window.location.href = 'overview.html';
+    }
+  </script>
+</head>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -242,6 +254,7 @@
     </script>
 </body>
 </html>
+
 
 
 
